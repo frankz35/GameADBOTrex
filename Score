@@ -1,0 +1,40 @@
+/*
+ * Class Score
+ * @author Frengki
+ */
+ 
+class Score
+{
+    private int score; //variabel score
+    private int highScore; //variabel highscore
+    
+    /*
+     * Constructor Score
+     */
+    public Score()
+    {
+        this.score = 0;
+        this.highScore = 0;
+    }
+    
+    /*
+     * Method ini digunakan untuk mengupdate score selama T-rex masih jalan, serta mulai spawn pterodactyl jika scorenya mencapai 500
+     */
+    public void update()
+    {
+        //score bertambah dengan menggunakan Thread
+    }
+    
+    /*
+     * Method ini digunakan untuk mendapatkan high score
+     */
+    private int getHighScore()
+    {
+        if(this.score>this.highScore)
+        {
+            this.highScore = this.score;
+        }
+        return this.highScore;
+    }
+    
+}
