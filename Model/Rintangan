@@ -30,7 +30,12 @@ public abstract class Rintangan {
     * Jika tidak kena maka Trex akan tetap hidup
     * Jika kena maka akan game over dan muncul score
     */
-    /*protected boolean isHit(){
-        
-    }*/
+    protected boolean isHit(Score score){
+        boolean live= true;
+        if(live!=true){
+            return score.getHighScore();
+        } else {
+            //masih lari sampe mati
+        }
+    }
 }
