@@ -1,37 +1,91 @@
 import java.util.Random;
 /**
  * Class Pterodacytl
- * @author Hasan A.S.
+ * @author Hasan Abdurrahim Shiddiq
+ * NPM 2015730018
  */
 public class Pterodactyl {
-    //posisi yang yang di-random adalah tinggi yakni posisiY
+    /**
+     * attribute posisiX: posisi pterodactyl pada sumbu x
+     * attribute posisiY: posisi pterodactyl pada sumbu y
+     * attribute posisiZ: posisi pterodactyl pada sumbu z
+     */
     public int posisiX, posisiY, posisiZ;
     
-    public Pterodactyl(int posisiX, int posisiY, int posisiZ){
-        Random rand = new Random();
-        //Asumsi 0 adalah di posisi darat, 50 di udara/setinggi kepala trex, 
-        //dan 100 di udara yang merupakan posisi tertinggi
-        this.posisiX=rand.nextInt();
-        this.posisiY=rand.nextInt();
-        this.posisiZ=rand.nextInt();
+    /**
+     * Constructor Pterodactyl
+     * Mengisi tiap attribute dengan nilai nol
+     */
+    public Pterodactyl(){
+        this.posisiX = 0;
+        this.posisiY = 0;
+        this.posisiZ = 0;
     }
     
-    public void spawn(){
-        int score=0;
+    /**
+     * Constructor Pterodactyl
+     * @param posisiX input posisi pterodactyl pada sumbu x 
+     */
+    public Pterodactyl(int posisiX){
         Random rand = new Random();
-        boolean live = true;
-        int temp=rand.nextInt(1);
-        while(live==true){
-            if(temp==0){
-                Pterodactyl p = new Pterodactyl(0,rand.nextInt(101),0);
-            }
-            else if(score>=500&&temp==1){
-                //instantiate Cactus
-                //Cactus c = new Cactus (0, rand.nextInt(25)+25, 0);
-            }
-            else{
-                
-            }
-        }
+        this.posisiX = posisiX;
+        this.posisiY = rand.nextInt();
+        this.posisiZ = rand.nextInt();
+    }
+    
+    /**
+     * Method untuk spawn pterodactyl
+     * @param posisiX input posisi pterodactyl pada sumbu x
+     */
+    public void spawn(int posisiX){
+        Pterodactyl p = new Pterodactyl(posisiX);
+    }
+    
+    /**
+     * Method untuk mengubah nilai posisi x pterodactyl
+     * @param posisiX input posisi pterodactyl pada sumbu x
+     */
+    public void setPosisiX(int posisiX){
+        this.posisiX = posisiX;
+    }
+    
+    /**
+     * Method untuk mengubah nilai posisi y pterodactyl
+     * @param posisiY input posisi pterodactyl pada sumbu y
+     */
+    public void setPosisiY(int posisiY){
+        this.posisiY = posisiY;
+    }
+    
+    /**
+     * Method untuk mengubah nilai posisi z pterodactyl
+     * @param posisiZ input posisi pterodactyl pada sumbu z
+     */
+    public void setPosisiZ(int posisiZ){
+        this.posisiZ = posisiZ;
+    }
+    
+    /**
+     * Method untuk mengubah nilai posisi x pterodactyl
+     * @return posisi pada sumbu x
+     */
+    public int getPosisiX(){
+        return this.posisiX;
+    }
+    
+    /**
+     * Method untuk mengubah nilai posisi x pterodactyl
+     * @return posisi pada sumbu y
+     */
+    public int getPosisiY(){
+        return this.posisiY;
+    }
+    
+    /**
+     * Method untuk mengubah nilai posisi x pterodactyl
+     * @return posisi pada sumbu z
+     */
+    public int getPosisiZ(){
+        return this.posisiZ;
     }
 }
