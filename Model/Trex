@@ -1,0 +1,74 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package trex;
+
+import java.util.ArrayList;
+
+/**
+ *
+ * @author calvin
+ */
+public class Trex {
+
+   
+	private double X,Y,Z;
+	private double height;
+	private double width;
+
+	public Trex(double height,double width){
+		this.X =0;
+		this.Y =0;
+		this.Z =0;
+		this.height =height;
+		this.width = width;
+	}
+
+        //anggapan melompat y bertambah 20 secara perlahan dan turun 20 secara perlahan
+       public void jump(){
+           for(int i=0;i<20;i++){
+               this.Y++;
+           }
+           for(int i=0;i<20;i++){
+               this.Y--;
+           }
+  
+       }
+
+       public void run(){
+        while(isHit(kaktus)!=true){
+            this.X++;
+        }
+         
+       }
+       
+       
+       // anggapan semua objek mempunyai titik terteluar dari atas,bawah,kiri,kanan
+       // jika titik terluar tRex kena dengan titik terluar Kaktus maka isHit return true
+       public boolean isHit(ArrayList<?> kaktus){
+           double leftX = X-(width/2);
+           double rightX = X+(width/2);
+           double topY= Y+(height/2);
+           double botY = Y-(height/2);
+           
+           for(int i=0;i<kaktus.size();i++){
+           double xKaktus = kaktus.indexOf(i).getX;
+           double yKaktus = kaktus.indexOf(i).getY();
+           double hKaktus = kaktus.indexOf(i).getHeight();
+           double wKaktus = kaktus.indexOf(i).getWidth();
+           
+           double leftXKaktus = xKaktus -(wKaktus/2);
+           double rightXKaktus = xKaktus +(wKaktus/2);
+           double topYKaktus = xKaktus +(hKaktus/2);
+           double botYKaktus = xKaktus -(hKaktus/2);
+           
+           if((leftXKaktus>=rightX||leftX<=rightXKaktus)&&(topYKaktus>=botY||topY<=botYKaktus)){
+               return true;
+           }
+       }
+           return false;
+       }
+}
+
