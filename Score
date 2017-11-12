@@ -1,14 +1,20 @@
-/*
+/**
  * Class Score
  * @author Frengki
  */
- 
-class Score
+public class Score
 {
-    private int score; //variabel score
-    private int highScore; //variabel highscore
+    /**
+     * Atribut untuk menyimpan score 
+     */
+    private int score;
     
-    /*
+    /**
+     * Atribut untuk menyimpan high score
+     */
+    private int highScore;
+    
+    /**
      * Constructor Score
      */
     public Score()
@@ -17,18 +23,30 @@ class Score
         this.highScore = 0;
     }
     
-    /*
-     * Method ini digunakan untuk mengupdate score selama T-rex masih jalan, serta mulai spawn pterodactyl jika scorenya mencapai 500
+    /**
+     * Method ini digunakan untuk mendapatkan score
+     * @return score
      */
-    public void update()
+    public int getScore()
     {
-        //score bertambah dengan menggunakan Thread
+        return this.score;
+    }
+ 
+    /**
+     * Method ini digunakan untuk mengupdate score selama T-rex masih berlari
+     */
+    public void updateScore()
+    {
+        double temp = 0;
+        temp += 0.005;
+        this.score = (int) temp;
     }
     
-    /*
+    /**
      * Method ini digunakan untuk mendapatkan high score
+     * @return high score
      */
-    private int getHighScore()
+    public int getHighScore()
     {
         if(this.score>this.highScore)
         {
@@ -37,4 +55,6 @@ class Score
         return this.highScore;
     }
     
+}
+
 }
