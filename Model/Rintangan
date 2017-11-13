@@ -20,7 +20,10 @@ public abstract class Rintangan {
     protected int z;
 
     /**
-     * Constructor kelas Rintangan Menginisialisasi atribut
+     * constructor kelas Rintangan yang menginisialisasi variabel
+     * @param x
+     * @param y
+     * @param z 
      */
     public Rintangan(int x, int y, int z) {
         this.x = x;
@@ -105,3 +108,4 @@ public abstract class Rintangan {
         }
     }
 }
+
