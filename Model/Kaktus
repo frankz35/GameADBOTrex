@@ -33,7 +33,7 @@ public class Kaktus extends Rintangan{
         Random r = new Random();
 
         //random jarak dan tinggi
-        //asumsi ada 2 tinggi, 1 = rendah; 2 = tinggi
+        //asumsi ada 2 tinggi, 0 = rendah; 1 = tinggi
         //kaktus muncul setiap score kelipatan 20 namun jumlahnya dirandom
         int score = 20;
         int jumlahKaktus= r.nextInt(x);
