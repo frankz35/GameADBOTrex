@@ -6,17 +6,30 @@
 
 /**
  *
- * @author Nadhila
+ * @author Nadhila Herdanti Dwi Larasati
  */
 import java.util.*;
 public class Kaktus extends Rintangan{
+    
+    /**
+     * Constructor kelas Kaktus
+     * Mengambil aribut dari kelas Rintangan
+     * @param x
+     * @param y
+     * @param z 
+     */
     
     public Kaktus(int x, int y, int z){
         super (x, y, z);
     }
     
+    /**
+     * Method ini meng-override abstract method yang ada di kelas Rintangan
+     * Method ini untuk merandom kemunculan kaktus
+     */
+    
     @Override
-    protected void spawn{
+    protected void spawn(){
         Random r = new Random();
 
         //random jarak dan tinggi
@@ -24,7 +37,7 @@ public class Kaktus extends Rintangan{
         //kaktus muncul setiap score kelipatan 20 namun jumlahnya dirandom
         int score = 20;
         int jumlahKaktus= r.nextInt(x);
-        for (int i = score; i < y; i++) {
+        for (int i = score; i < x; i++) {
             if(score%20==0){
                 Kaktus k = new Kaktus(jumlahKaktus, r.nextInt(2), 0);
             } else {
