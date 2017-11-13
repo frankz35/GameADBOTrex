@@ -6,7 +6,7 @@
 
 /**
  *
- * @author Nadhila Herdanti Dwi Larasati
+ * @author Nadhila Herdanti Dwi Larasati 2014730035
  */
 import java.util.*;
 public class Kaktus extends Rintangan{
