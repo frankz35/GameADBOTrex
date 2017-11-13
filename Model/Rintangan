@@ -102,7 +102,7 @@ public abstract class Rintangan {
     protected boolean isHit(Score score) {
         boolean live = true;
         if (live != true) {
-            return score.getHighScore();
+            return score.getScore();
         } else {
             //masih lari sampe mati
         }
