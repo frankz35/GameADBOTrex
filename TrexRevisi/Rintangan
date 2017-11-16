@@ -1,0 +1,43 @@
+package MyState;
+
+import com.jme3.bounding.BoundingBox;
+import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
+import com.jme3.bullet.control.CharacterControl;
+import com.jme3.scene.Spatial;
+import java.util.Random;
+
+/**
+ *
+ * @author user
+ */
+public abstract class Rintangan
+{
+    protected CharacterControl rintanganControl;
+    protected Spatial rintangan;
+    public Rintangan(Spatial rin)
+    {
+        Random r=new Random();
+        int rand=r.nextInt(2)+1;
+        rin.setLocalTranslation(0, rand, 57);
+        this.rintangan=rin;
+        BoundingBox boundingBox =(BoundingBox) rintangan.getWorldBound();
+        float radius=boundingBox.getXExtent();
+        float height=boundingBox.getYExtent();
+        
+        CapsuleCollisionShape playerShape=new CapsuleCollisionShape(radius,height);
+        
+        rintanganControl=new CharacterControl(playerShape,1.0f);
+        rintangan.addControl(rintanganControl);
+    }
+
+    
+    
+    public CharacterControl getRintanganControl() {
+        return rintanganControl;
+    }
+
+    public Spatial getRintangan() {
+        return rintangan;
+    }
+    
+}
