@@ -1,0 +1,15 @@
+package MyState;
+
+import com.jme3.scene.Spatial;
+
+/**
+ *
+ * @author user
+ */
+public class Kaktus extends Rintangan
+{
+    public Kaktus(Spatial kaktus)
+    {
+        super(kaktus);
+    }
+}
