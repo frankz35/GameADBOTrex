@@ -2,9 +2,10 @@
  * Class Score
  * @author Frengki
  */
-public class Score
+public class Score 
 {
-    /**
+    
+     /**
      * Atribut untuk menyimpan score 
      */
     private int score;
@@ -15,12 +16,18 @@ public class Score
     private int highScore;
     
     /**
+     * Atribut untuk menyimpan temp score
+     */
+    private double tempScore;
+    
+    /**
      * Constructor Score
      */
     public Score()
     {
         this.score = 0;
         this.highScore = 0;
+        this.tempScore = 0;
     }
     
     /**
@@ -37,8 +44,9 @@ public class Score
      */
     public void updateScore()
     {
+        tempScore += 0.009;
         double temp = 0;
-        temp += 0.005;
+        temp += tempScore;
         this.score = (int) temp;
     }
     
@@ -54,7 +62,5 @@ public class Score
         }
         return this.highScore;
     }
-    
 }
 
-}
