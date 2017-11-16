@@ -1,0 +1,16 @@
+package MyState;
+
+import com.jme3.scene.Spatial;
+
+/**
+ *
+ * @author user
+ */
+public class Shuriken extends Rintangan
+{
+    public Shuriken(Spatial shuriken)
+    {
+        super(shuriken);
+        this.rintanganControl.setGravity(0);
+    }
+}
