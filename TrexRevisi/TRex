@@ -1,1 +1,43 @@
+package MyState;
+
+import com.jme3.bounding.BoundingBox;
+import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
+import com.jme3.bullet.control.CharacterControl;
+import com.jme3.input.KeyInput;
+import com.jme3.input.controls.KeyTrigger;
+import com.jme3.scene.Spatial;
+
+/**
+ *
+ * @author user
+ */
+public class Trex {
+    
+    private CharacterControl trexControl;
+    private Spatial trexPlayer;
+    public Trex(Spatial trex){
+        trexPlayer=trex;
+        trexPlayer.setLocalScale(0.1f);
+        trexPlayer.setLocalTranslation(0, 0, 120);
+        BoundingBox boundingBox =(BoundingBox) trexPlayer.getWorldBound();
+        float radius=boundingBox.getXExtent();
+        float height=boundingBox.getYExtent();
+        
+        CapsuleCollisionShape playerShape=new CapsuleCollisionShape(radius,height);
+        
+        trexControl=new CharacterControl(playerShape,1.0f);
+        trexPlayer.addControl(trexControl);
+        trexControl.setJumpSpeed(15);
+        
+    }
+
+    public CharacterControl getTrexControl() {
+        return trexControl;
+    }
+
+    public Spatial getTrexPlayer() {
+        return trexPlayer;
+    }
+    
+}
 
