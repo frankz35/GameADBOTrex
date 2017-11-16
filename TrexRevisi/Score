@@ -1,0 +1,87 @@
+package MyState;
+/**
+ * @author Frengki
+ */
+public class Score {
+    
+     /**
+     * Atribut untuk menyimpan score 
+     */
+    private int score;
+    
+    /**
+     * Atribut untuk menyimpan high score
+     */
+    private int highScore;
+    
+    /**
+     * Atribut untuk menyimpan temp score
+     */
+    private double tempScore;
+    
+    /**
+     * Atribut untuk menyimpan apakah score masih berjalan
+     */
+    private boolean isRunning;
+    
+    /**
+     * Constructor Score
+     */
+    public Score()
+    {
+        this.score = 0;
+        this.highScore = 0;
+        this.tempScore = 0;
+        this.isRunning = true;
+    }
+    
+    /**
+     * Method ini digunakan untuk mendapatkan score
+     * @return score
+     */
+    public int getScore()
+    {
+        return this.score;
+    }
+ 
+    /**
+     * Method ini digunakan untuk menset berjalan atau tidaknya score
+     */
+    public void setIsRun(boolean isRun)
+    {
+        this.isRunning = isRun;
+    }
+    
+    /**
+     * Method ini digunakan untuk mereset score
+     */
+    public void resetScore()
+    {
+        this.score = 0;
+    }
+    
+    /**
+     * Method ini digunakan untuk mengupdate score selama T-rex masih berlari
+     */
+    public void updateScore()
+    {
+        if(isRunning==true)
+        {
+            tempScore += 0.01;
+            this.score = (int) tempScore;
+        }
+    }
+    
+    /**
+     * Method ini digunakan untuk mendapatkan high score
+     * @return high score
+     */
+    public int getHighScore()
+    {
+        if(this.score>this.highScore)
+        {
+            this.highScore = this.score;
+        }
+        return this.highScore;
+    }
+}
