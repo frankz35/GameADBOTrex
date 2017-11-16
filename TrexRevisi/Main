@@ -1,0 +1,222 @@
+package MyState;
+
+import com.jme3.animation.AnimChannel;
+import com.jme3.animation.AnimControl;
+import com.jme3.app.SimpleApplication;
+import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.font.BitmapText;
+import com.jme3.input.ChaseCamera;
+import com.jme3.input.FlyByCamera;
+import com.jme3.input.KeyInput;
+import com.jme3.input.controls.ActionListener;
+import com.jme3.input.controls.KeyTrigger;
+import com.jme3.light.DirectionalLight;
+import com.jme3.math.ColorRGBA;
+import com.jme3.math.Vector3f;
+import com.jme3.renderer.Camera;
+import com.jme3.renderer.RenderManager;
+import com.jme3.scene.Spatial;
+import java.util.Random;
+
+/**
+ * This is the Main Class of your Game. You should only do initialization here.
+ * Move your Logic into AppStates or Controls
+ * @author normenhansen
+ */
+public class Main extends SimpleApplication
+{
+    private BulletAppState bulletAppState;
+    private final Vector3f playerWalkDirection=Vector3f.ZERO;
+    private boolean run;
+    private boolean spawn;
+    private ChaseCamera chaseCam;
+    private Camera camera;
+    private FlyByCamera flyByCamera;
+    private Trex trex;
+    private Kaktus kaktus;
+    private Shuriken shuriken;
+    private Rintangan rintangan;
+    private BitmapText scoreText;
+    private BitmapText highScoreText;
+    Score s = new Score();
+    public float speed = 7;
+    private AnimChannel channel;
+    private AnimControl control;
+    
+    public static void main(String[] args)
+    {
+        Main app = new Main();
+        app.start();
+    }
+  
+    @Override
+    public void simpleInitApp() 
+    {
+        rootNode = this.getRootNode();
+        inputManager = this.getInputManager();
+        assetManager = this.getAssetManager();
+        camera=this.getCamera();
+        flyByCamera = this.getFlyByCamera();
+        trex=new Trex(assetManager.loadModel("Models/tREX.j3o"));
+        guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
+        scoreText = new BitmapText(assetManager.loadFont("Interface/Fonts/Default.fnt"), false);
+        highScoreText = new BitmapText(assetManager.loadFont("Interface/Fonts/Default.fnt"), false);
+        scoreText.setSize(guiFont.getCharSet().getRenderedSize());
+        scoreText.setText("Score: " + s.getScore());
+        scoreText.setLocalTranslation(500, settings.getHeight(), 0);
+        highScoreText.setSize(guiFont.getCharSet().getRenderedSize());
+        highScoreText.setText("High Score: " + 0);
+        highScoreText.setLocalTranslation(500, settings.getHeight()-20, 0);
+        guiNode.attachChild(scoreText);
+        guiNode.attachChild(highScoreText);
+         //set kamera
+        camera.setLocation(new Vector3f(20,5,125));
+        camera.lookAt(new Vector3f(0,0,110), new Vector3f(0,0,0));
+        this.flyByCamera.setEnabled(false);
+        
+        /**
+         * set cahaya
+         */
+        DirectionalLight sun = new DirectionalLight();
+        sun.setDirection((new Vector3f(-0.5f, -0.5f, -0.5f)).normalizeLocal());
+        sun.setColor(ColorRGBA.White);
+        rootNode.addLight(sun);
+        
+        //set Fisik
+        bulletAppState =new BulletAppState();
+        bulletAppState.setDebugEnabled(false);
+        stateManager.attach(bulletAppState);
+        
+        //load tanah
+        Spatial scene=assetManager.loadModel("Scenes/lvl2.j3o");
+        rootNode.attachChild(scene);
+        
+        //load floor fisik
+        Spatial floor = rootNode.getChild("Floor");
+        bulletAppState.getPhysicsSpace().add(floor.getControl(RigidBodyControl.class));
+        
+        //load trex control
+        rootNode.attachChild(trex.getTrexPlayer());
+        bulletAppState.getPhysicsSpace().add(trex.getTrexPlayer());
+        
+        inputManager.addMapping("Jump", new KeyTrigger(KeyInput.KEY_SPACE));
+        inputManager.addListener(actionListener, "Jump");
+        
+        //summon rintangan pertama selanjutnya auto summon
+        spawn(new Shuriken(assetManager.loadModel("Models/shuriken2.j3o")));
+    }
+
+    private final ActionListener actionListener = new ActionListener() {
+        @Override
+        public void onAction(String name, boolean keyPressed, float tpf) {
+            if(name.equals("Jump")&&keyPressed){
+                trex.getTrexControl().jump();
+                if(run==false){
+                    run=true;
+                }
+            }
+        }
+    };
+    
+    @Override
+    public void simpleUpdate(float tpf) 
+    {
+        scoreText.setText("Score: " + s.getScore());
+        s.updateScore();
+        autoSpawn();
+        if((rintangan.getRintangan()!=null)&&(trex.getTrexPlayer()!=null)){
+            if(isHit(trex.getTrexControl().getPhysicsLocation(),rintangan.getRintanganControl().getPhysicsLocation())==true){
+                rintangan.getRintanganControl().setEnabled(false);
+                if(rintangan.equals(shuriken))
+                {
+                    rootNode.getChild("Shuriken").removeControl(RotatingControl.class);
+                }
+                trex.getTrexControl().setEnabled(false);
+                s.setIsRun(false);
+                highScoreText.setText("High Score: " + s.getHighScore());
+            }
+        }
+    }
+    
+    @Override
+    public void simpleRender(RenderManager rm)
+    {
+        
+    }
+    
+    public boolean isHit(Vector3f v,Vector3f v2)
+    {
+        float x=v.getX();   float x2=v2.getX();     float xRes;
+        float y=v.getY();   float y2=v2.getY();     float yRes;
+        float z=v.getZ();   float z2=v2.getZ();     float zRes;
+        if(x>x2)
+        {
+            xRes=x-x2;
+        }
+        else
+        {
+            xRes=x2-x;
+        }
+        if(y>y2)
+        {
+            yRes=y-y2;
+        }
+        else
+        {
+            yRes=y2-y;
+        }
+        if(z>z2)
+        {
+            zRes=z-z2;
+        }
+        else
+        {
+            zRes=z2-z;
+        }
+        if((xRes<1)&&(yRes<1.5f)&&(zRes<1))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+  
+    //pada saat posisi rintangan keluar dari jangakauan kamera. memanggil method spawn
+    //dengan objek random(kaktus/burung).
+    public void autoSpawn(){
+        if(rintangan.getRintangan()!=null){
+            Vector3f v=rintangan.getRintanganControl().getPhysicsLocation();
+            float z=v.getZ();
+            if(z>10+trex.getTrexControl().getPhysicsLocation().getZ()){
+                Random r=new Random();
+                int temp=r.nextInt(2);
+                rootNode.detachChild(rintangan.getRintangan());
+                if(temp==0){
+                    spawn(new Kaktus(assetManager.loadModel("Models/kaktus.j3o")));
+                }
+                if(temp==1){
+                    spawn(new Shuriken(assetManager.loadModel("Models/shuriken2.j3o")));
+                }
+            }
+        }
+    }
+    
+    //memanggil rintangan dari posisi yang telah ditentukan.
+    public void spawn(Rintangan rin){
+        rintangan=rin;
+        rootNode.attachChild(rintangan.getRintangan());
+        bulletAppState.getPhysicsSpace().add(rintangan.getRintanganControl());
+
+        playerWalkDirection.addLocal(new Vector3f(0,0,speed));
+        playerWalkDirection.divideLocal(20);
+        
+        if(rintangan!=null){
+            rintangan.getRintanganControl().setWalkDirection(playerWalkDirection);
+        }
+        speed += 0.2;
+    }
+
+}
