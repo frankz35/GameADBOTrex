@@ -3,11 +3,18 @@ package MyState;
 import com.jme3.scene.Spatial;
 
 /**
- *
- * @author user
+ * Class Shuriken 
+ * @author Hasan Abdurrahim Shiddiq
+ * NPM 2015730018
  */
 public class Shuriken extends Rintangan
 {
+    /**
+     * Constructor class Shuriken
+     * @param shuriken objek dengan tipe data Spatial
+     * Setelah objek shuriken di-instantiate, nilai gravitasi
+     * di-set dengan nilai nol sehingga objek shuriken melayang
+     */
     public Shuriken(Spatial shuriken)
     {
         super(shuriken);
