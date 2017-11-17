@@ -1,6 +1,8 @@
 package MyState;
 /**
- * @author Frengki
+ * Class Score
+ * @author Frengki Ang
+ * NPM 2016730002
  */
 public class Score {
     
@@ -46,6 +48,7 @@ public class Score {
  
     /**
      * Method ini digunakan untuk menset berjalan atau tidaknya score
+     * @param isRun, kalau true berarti scorenya masih berjalan, kalau false score berhenti berjalan
      */
     public void setIsRun(boolean isRun)
     {
